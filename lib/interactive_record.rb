@@ -56,8 +56,11 @@ def self.find_by_name(name)
   DB[:conn].execute(sql)
 end
 
-def self.find_by(variable)
-  sql = "SELECT * FROM #{self.table_name} WHERE #{self.values_for_insert} = '#{variable}'" 
+def self.find_by(options={})
+  sql = nil
+  options.each do |key, value|
+    sql = "SELECT * FROM #{self.table_name} WHERE #{key} = '#{value}'"
+  end
   DB[:conn].execute(sql)
 end
 
